@@ -19,6 +19,7 @@ function EventPrinter() {
         var report = {};
         for (var eventIdx = 0; eventIdx < eventLog.length; eventIdx++) {
             var event = eventLog[eventIdx];
+            var eventDate = new Date(event.date);
 
             if (event.name in report) {
                 // Get the existing entry for this event name.
@@ -27,8 +28,8 @@ function EventPrinter() {
                 // Update the report with this event.
                 report[event.name] = {
                     "count": existingEntry.count + 1,
-                    "firstSeen": (event.date < existingEntry.firstSeen) ? event.date : existingEntry.firstSeen,
-                    "lastSeen": (event.date > existingEntry.lastSeen) ? event.date : existingEntry.lastSeen
+                    "firstSeen": (eventDate < existingEntry.firstSeen) ? eventDate : existingEntry.firstSeen,
+                    "lastSeen": (eventDate > existingEntry.lastSeen) ? eventDate : existingEntry.lastSeen
                 }
             } else {
                 report[event.name] = {
