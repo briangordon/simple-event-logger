@@ -48,7 +48,9 @@ function EventPrinter() {
         var report = buildReport();
         if (eventName) {
             if (eventName in report) {
-                console.log(JSON.stringify(report[eventName], null, "  "));
+                var subReport = {};
+                subReport[eventName] = report[eventName];
+                console.log(JSON.stringify(subReport, null, "  "));
             } else {
                 console.log("Event '" + eventName + "' not found in event log.");
             }
