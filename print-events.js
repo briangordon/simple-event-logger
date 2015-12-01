@@ -50,13 +50,21 @@ function EventPrinter() {
             if (eventName in report) {
                 var subReport = {};
                 subReport[eventName] = report[eventName];
-                console.log(JSON.stringify(subReport, null, "  "));
+                report = subReport;
             } else {
-                console.log("Event '" + eventName + "' not found in event log.");
+                throw "Event '" + eventName + "' not found in event log.";
             }
-        } else {
-            console.log(JSON.stringify(report, null, "  "));
         }
+
+        for (var eventName in report) {
+            var reportEntry = report[eventName];
+
+            // Stringify date fields manually. By default, JSON.stringify calls Date.toJSON, which prints in ISO format. UTC is hard to read.
+            reportEntry.firstSeen = reportEntry.firstSeen.toString();
+            reportEntry.lastSeen = reportEntry.lastSeen.toString();
+        }
+
+        console.log(JSON.stringify(report, null, "  "));
     }
 }
 
