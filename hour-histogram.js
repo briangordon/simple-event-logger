@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-function WeekdayHistogrammer() {
+function HourHistogrammer() {
     var FILE_NAME = "events.json";
 
     // Read the contents of the event log file.
@@ -13,13 +13,13 @@ function WeekdayHistogrammer() {
     }
 
     function getCountsByWeekday() {
-        var counts = [0, 0, 0, 0, 0, 0, 0];
+        var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         var eventLog = readEventLog();
         for (var eventIdx = 0; eventIdx < eventLog.length; eventIdx++) {
             var event = eventLog[eventIdx];
             var eventDate = new Date(event.date);
-            counts[eventDate.getDay()]++;
+            counts[eventDate.getHours()]++;
         }
 
         return counts;
@@ -27,17 +27,14 @@ function WeekdayHistogrammer() {
 
     this.printHistogram = function () {
         var counts = getCountsByWeekday();
+        
+        var countsReport = {};
+        for (var hour = 0; hour <= 23; hour++) {
+            countsReport[hour + ":00"] = counts[hour];
+        }
 
-        console.log(JSON.stringify({
-            "Sunday": counts[0],
-            "Monday": counts[1],
-            "Tuesday": counts[2],
-            "Wednesday": counts[3],
-            "Thursday": counts[4],
-            "Friday": counts[5],
-            "Saturday": counts[6]
-        }, null, "  "));
+        console.log(JSON.stringify(countsReport, null, "  "));
     }
 }
 
-new WeekdayHistogrammer().printHistogram();
+new HourHistogrammer().printHistogram();
