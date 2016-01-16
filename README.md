@@ -5,11 +5,11 @@ This is a simple set of scripts that can help with keeping track of events in re
 Here's an example of usage:
 
 ```
-~/simple-event-logger $ node log-event.js Event A
-~/simple-event-logger $ node log-event.js Event B
-~/simple-event-logger $ node log-event.js Event A
-~/simple-event-logger $ node log-event.js Event C
-~/simple-event-logger $ node print-events.js
+~/simple-event-logger $ node log-event Event A
+~/simple-event-logger $ node log-event Event B
+~/simple-event-logger $ node log-event Event A
+~/simple-event-logger $ node log-event Event C
+~/simple-event-logger $ node print-events
 {
   "Event A": {
     "count": 2,
@@ -27,7 +27,7 @@ Here's an example of usage:
     "lastSeen": "2015-11-25T02:30:11.640Z"
   }
 }
-~/simple-event-logger $ node weekday-histogram.js
+~/simple-event-logger $ node weekday-histogram
 {
   "Sunday": 0,
   "Monday": 0,
